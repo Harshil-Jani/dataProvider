@@ -1,23 +1,24 @@
-import logo from './logo.svg';
 import './App.css';
+// Writing Custom DP to verify API working
+import dataprovider from './dataprovider';
+
+// This import doesn't work. 
+import * as DP from "../node_modules/ra-core/src/dataProvider";
+
+dataprovider.update("Teacher","");
+
+// const DataProvider = DP.useDataProvider();
+// DP.UPDATE("Teacher","");
+// DP.useUpdate("Teacher","");
+
+
+
+
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1>Hii </h1>
     </div>
   );
 }
