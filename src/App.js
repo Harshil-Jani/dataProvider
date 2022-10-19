@@ -1,6 +1,6 @@
 import './App.css';
 import fakeDataProvider from 'ra-data-fakerest';
-import { CoreAdminContext, useDataProvider } from 'ra-core';
+import { CoreAdminContext, useDataProvider, useGetOne } from 'ra-core';
 import { useState, useEffect } from 'react';
 
 const dataProvider = fakeDataProvider({
@@ -29,12 +29,20 @@ const UseGetOne = () => {
   return <div data-testid="loading">loading</div>;
 };
 
+const UseGetOneHookExample = () => {
+  const { data, error, loading } = useGetOne('posts', { id: 1 });
+  if (error) return <div data-testid="error">{error.message}</div>;
+  if (loading) return <div data-testid="loading">loading</div>;
+  return <div data-testid="data">{JSON.stringify(data)}</div>;
+};
+
 
 function App() {
   dataProvider.getOne("posts", { id: 0 }).then((response) => { console.log(response) });
   return (
     <CoreAdminContext dataProvider={dataProvider}>
       <UseGetOne />
+      <UseGetOneHookExample />
     </CoreAdminContext>
   );
 }
