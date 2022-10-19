@@ -1,5 +1,7 @@
 import './App.css';
 import fakeDataProvider from 'ra-data-fakerest';
+import { CoreAdminContext, useDataProvider } from 'ra-core';
+import { useState, useEffect } from 'react';
 
 const dataProvider = fakeDataProvider({
   posts: [
@@ -12,13 +14,28 @@ const dataProvider = fakeDataProvider({
   ],
 });
 
+const UseGetOne = () => {
+  const [data, setData] = useState();
+  const [error, setError] = useState();
+  const dataProvider = useDataProvider();
+  useEffect(() => {
+    dataProvider
+      .getOne('posts', { id: 1 })
+      .then(res => setData(res.data))
+      .catch(e => setError(e));
+  }, [dataProvider]);
+  if (error) return <div data-testid="error">{error.message}</div>;
+  if (data) return <div data-testid="data">{JSON.stringify(data)}</div>;
+  return <div data-testid="loading">loading</div>;
+};
+
 
 function App() {
   dataProvider.getOne("posts", { id: 0 }).then((response) => { console.log(response) });
   return (
-    <div className="App">
-      <h1>See Console Log for Data </h1>
-    </div>
+    <CoreAdminContext dataProvider={dataProvider}>
+      <UseGetOne />
+    </CoreAdminContext>
   );
 }
 
