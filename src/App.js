@@ -40,8 +40,13 @@ const UseGetOneHookExample = () => {
 function App() {
   dataProvider.getOne("posts", { id: 0 }).then((response) => { console.log(response) });
   return (
+    // Every application will be wrapped in a CoreAdminContext to make sure we have the hooks available
+    // For now it seems like wrapping the application with a CoreAdminContext is not too much of a hassle.
     <CoreAdminContext dataProvider={dataProvider}>
+      {/* this is when you don't wnat to use hooks */}
       <UseGetOne />
+
+      {/* Example with inbuilt hooks -> makes the code quite consice */}
       <UseGetOneHookExample />
     </CoreAdminContext>
   );
